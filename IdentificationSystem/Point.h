@@ -487,8 +487,52 @@ namespace sp {
 			return* this;
 		}
 
+		Point<Tp>& operator -= (const Point<Tp>& assignMinus) {
+			this->xCootdinate -= assignMinus.xCoordinate;
+			this->yCoordinate -= assignMinus.yCoordinate;
+			this->zCoordinate -= assignMinus.zCoordinate;
+
+			return* this;
+		}
+
+		Point<Tp>& operator ++ () {
+			this->xCoordinate += 1;
+			this->yCoordinate += 1;
+			this->zCoordinate += 1;
+
+			return* this;
+		}
+
+		Point<Tp> operator ++ (int value) {
+			Point<Tp> point(*this);
+
+			this->xCoordinate += 1;
+			this->yCoordinate += 1;
+			this->zCoordinate += 1;
+
+			return point;
+		}
+
+		Point<Tp>& operator -- () {
+			this->xCoordinate -= 1;
+			this->yCoordinate -= 1;
+			this->zCoordinate -= 1;
+
+			return* this;
+		}
+
+		Point<Tp> operator -- (int some) {
+			Point<Tp> point(*this);
+
+			this->xCoordinate -= 1;
+			this->yCoordinate -= 1;
+			this->zCoordinate -= 1;
+
+			return point;
+		}
+		
 		~Point() {
-			
+
 		}
 
 	};

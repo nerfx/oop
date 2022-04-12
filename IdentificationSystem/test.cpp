@@ -1,4 +1,3 @@
-#include<iostream>
 #include "Point.h"
 
 using uchar_t = unsigned char;

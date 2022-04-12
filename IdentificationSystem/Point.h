@@ -12,13 +12,9 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include<iostream>
-#include<ctime>
-#include<string>
-#include<typeinfo>
+#include "includes.h"
 
-
-namespace sp {
+SP_BEGIN
 
 	using llInt_t = long long int;
 	using lDouble_t = long double;
@@ -244,7 +240,7 @@ namespace sp {
 		}
 
 	};
-	
+
 	template <typename Tp, typename T = long double>
 	class Point {
 	private: 
@@ -376,7 +372,7 @@ namespace sp {
 
 			}
 			else {
-				
+
 				return* this;
 
 			}
@@ -431,7 +427,7 @@ namespace sp {
 
 		}
 
-		Point<Tp>& operator = (Point<Tp> const& assignObj) {
+		Point<Tp>& operator = (const Point<Tp>& assignObj) {
 
 
 			this->xCoordinate = assignObj.xCoordinate;
@@ -442,7 +438,7 @@ namespace sp {
 
 		}
 
-		bool operator == (Point<Tp>& equalObj) {
+		bool operator == (const Point<Tp>& equalObj) {
 			
 			return this->xCoordinate == equalObj.xCoordinate && 
 				this->yCoordinate == equalObj.yCoordinate && 
@@ -450,7 +446,7 @@ namespace sp {
 
 		}
 
-		bool operator != (Point<Tp>& notequalObj) {
+		bool operator != (const Point<Tp>& notequalObj) {
 
 			return this->xCoordinate != notequalObj.xCoordinate || 
 				this->yCoordinate != notequalObj.yCoordinate || 
@@ -537,5 +533,6 @@ namespace sp {
 
 	};
 
-};
+SP_END
+
 #endif

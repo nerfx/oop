@@ -1,1 +1,2 @@
-Projects that reflect various principles of OOP
+# oop
+Projects that display various principles of OOP C++

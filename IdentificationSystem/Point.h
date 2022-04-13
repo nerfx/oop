@@ -16,6 +16,7 @@
 
 SP_BEGIN
 
+
 	using llInt_t = long long int;
 	using lDouble_t = long double;
 
@@ -34,8 +35,8 @@ SP_BEGIN
 
 		string_t charType;
 
-		const string_t CHAR		= typeid(char).name();
-		const string_t U_CHAR	= typeid(char).name();
+		const string_t CHAR	= typeid(char).name();
+		const string_t U_CHAR = typeid(char).name();
 
 	public:
 
@@ -99,14 +100,14 @@ SP_BEGIN
 	private:
 		string_t intType;
 
-		const string_t SHORT		= typeid(short int).name();
-		const string_t INT			= typeid(int).name();
-		const string_t LONG			= typeid(long int).name();
-		const string_t U_SHORT		= typeid(unsigned short).name();
-		const string_t U_INT		= typeid(unsigned int).name();
-		const string_t U_LONG		= typeid(unsigned long int).name();
-		const string_t LL_INT		= typeid(long long int).name();
-		const string_t ULL_INT		= typeid(unsigned long long int).name();
+		const string_t SHORT = typeid(short int).name();
+		const string_t INT = typeid(int).name();
+		const string_t LONG	= typeid(long int).name();
+		const string_t U_SHORT = typeid(unsigned short).name();
+		const string_t U_INT = typeid(unsigned int).name();
+		const string_t U_LONG = typeid(unsigned long int).name();
+		const string_t LL_INT = typeid(long long int).name();
+		const string_t ULL_INT = typeid(unsigned long long int).name();
 
 	public:
 
@@ -189,9 +190,9 @@ SP_BEGIN
 	private:
 		string_t doubleType;
 
-		const string_t FLOAT		= typeid(float).name();
-		const string_t DOUBLE		= typeid(double).name();
-		const string_t L_DOUBLE		= typeid(long double).name();
+		const string_t FLOAT = typeid(float).name();
+		const string_t DOUBLE = typeid(double).name();
+		const string_t L_DOUBLE = typeid(long double).name();
 
 	public:
 
@@ -249,11 +250,27 @@ SP_BEGIN
 		T yCoordinate;
 		T zCoordinate;
 
+	protected:
+
+		void initialization(CharID_t& charID, IntID_t& intID, DoubleID_t& doubleID, const string_t typenameTp) {
+
+			CharName charName;
+			IntName intName;
+			DoubleName doubleName;
+
+			charName.setChar(typenameTp);
+			intName.setInt(typenameTp);
+			doubleName.setDouble(typenameTp);
+
+			charID = charName.enumOfChar();
+			intID = intName.enumOfInt();
+			doubleID = doubleName.enumOfDouble();
+
+		}
+
 	public: 
 		
-		
 		Point(Tp xDefault = 0, Tp yDefault = 0, Tp zDefault = 0) {
-
 			srand(time(NULL));
 
 			std::cout << "constructor : Point();\n";
@@ -262,6 +279,7 @@ SP_BEGIN
 			this->yCoordinate = static_cast<T>(yDefault);
 			this->zCoordinate = static_cast<T>(zDefault);
 
+		
 		}
 		
 		Point(const Point<Tp>& P) {
@@ -294,10 +312,17 @@ SP_BEGIN
 
 			const string_t type = typeid(Tp).name();
 			
+			//const string_t type = typeid(Tp).name();
+			std::cout << "Type of current object of class: " << type << '\n';
+			
 			CharID_t charID;
 			IntID_t intID;
 			DoubleID_t doubleID;
 
+			//calling the type initialization function
+			initialization(charID, intID, doubleID, type);
+
+			/*
 			CharName charName;
 			IntName intName;
 			DoubleName doubleName;
@@ -309,6 +334,7 @@ SP_BEGIN
 			charID = charName.enumOfChar();
 			intID = intName.enumOfInt();
 			doubleID = doubleName.enumOfDouble();
+			*/
 
 
 			if (static_cast<int>(intID)) {

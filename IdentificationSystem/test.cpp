@@ -86,10 +86,27 @@ void unit1() {
 	std::cout << '\n';
 	
 	//std::cout << '\n';
-	
+
+	std::cout << "\n\t\t ---testing function that returns a obj. id---\n\n";
+
+	std::cout << p1.getId() << '\n';
+	std::cout << p2.getId() << '\n';
+	std::cout << p3.getId() << '\n';
+	std::cout << p4.getId() << '\n';
+	std::cout << p5.getId() << '\n';
+	std::cout << p6.getId() << '\n';
+	std::cout << p7.getId() << '\n';
+	std::cout << p8.getId() << '\n';
+	std::cout << p9.getId() << '\n';
+	std::cout << p10.getId() << '\n';
+	std::cout << p11.getId() << '\n';
+	std::cout << p12.getId() << '\n';
+	std::cout << p12.getId() << '\n';
+
 	std::cout << "\t\t ---end test #1---\n\n";
 
 }
+
 
 void unit2() {
 
@@ -133,22 +150,32 @@ void unit2() {
 	doublePoint.output();
 	std::cout << '\n';
 
-	std::cout << "\t\t ---end test #2---\n\n";
+	std::cout << charPoint.getId() << '\n';
+	std::cout << intPoint.getId() << '\n';
+	std::cout << doublePoint.getId() << '\n';
 
-}
+	std::cout << "\n\t\t ---end test #2---\n\n";
+
+} 
 
 int main(int argc, char* argv[]) {
-
-	/*
-	for (int it = 0; it < argc; ++it) {
-		std::cout << argv[it];
-	}
-	std::cout << '\n';
-	*/
 
 	unit1();
 
 	unit2();
+
+	sp::Point<int> p1;
+	sp::Point<int> p2;
+
+	std::cout << p1.getId() << '\n';
+	std::cout << p2.getId() << '\n';
+
+	//std::cout << p1.getCount() << '\n';
+
+	sp::Point<double> p3;
+
+	std::cout << p3.getId() << '\n';
+	//std::cout << p3.getCount() << '\n';
 
 	return 0;
 }

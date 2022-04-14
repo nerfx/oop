@@ -249,6 +249,8 @@ SP_BEGIN
 		T xCoordinate;
 		T yCoordinate;
 		T zCoordinate;
+		static int objectCount;
+		int objectId;
 
 	protected:
 
@@ -272,22 +274,35 @@ SP_BEGIN
 		
 		Point(Tp xDefault = 0, Tp yDefault = 0, Tp zDefault = 0) {
 			srand(time(NULL));
-
 			std::cout << "constructor : Point();\n";
 
 			this->xCoordinate = static_cast<T>(xDefault);
 			this->yCoordinate = static_cast<T>(yDefault);
 			this->zCoordinate = static_cast<T>(zDefault);
 
-		
+			
+			objectId = objectCount++;
+
 		}
-		
+
 		Point(const Point<Tp>& P) {
 
 			this->xCoordinate = static_cast<T>(P.xCoordinate);
 			this->yCoordinate = static_cast<T>(P.yCoordinate);
 			this->zCoordinate = static_cast<T>(P.zCoordinate);
 
+		}
+
+		string_t getId() {
+
+			string_t type = typeid(Tp).name();
+			string_t id = std::to_string(objectId);
+
+			return "Point<" + type + "> " + id;
+		}
+
+		static int getCount() {
+			return objectCount;
 		}
 
 		void set(Tp x, Tp y, Tp z) {
@@ -311,8 +326,7 @@ SP_BEGIN
 			std::cout << "randomInput();\n";
 
 			const string_t type = typeid(Tp).name();
-			
-			//const string_t type = typeid(Tp).name();
+		
 			std::cout << "Type of current object of class: " << type << '\n';
 			
 			CharID_t charID;
@@ -322,33 +336,13 @@ SP_BEGIN
 			//calling the type initialization function
 			initialization(charID, intID, doubleID, type);
 
-			/*
-			CharName charName;
-			IntName intName;
-			DoubleName doubleName;
-
-			charName.setChar(type);
-			intName.setInt(type);
-			doubleName.setDouble(type);
-
-			charID = charName.enumOfChar();
-			intID = intName.enumOfInt();
-			doubleID = doubleName.enumOfDouble();
-			*/
-
-
 			if (static_cast<int>(intID)) {
 
-				
 				assignNull();
 
-				//std::cout << "Òèï: " << typeid(this->xCoordinate).name() << '\n';
-		
-				
 				llInt_t num1RandInt = static_cast<llInt_t>(num1);
 				llInt_t num2RandInt = static_cast<llInt_t>(num2);
 				
-
 
 				this->xCoordinate += rand() % num1RandInt + num2RandInt;
 				this->yCoordinate += rand() % num1RandInt + num2RandInt;
@@ -405,6 +399,7 @@ SP_BEGIN
 
 		}
 		
+
 		T getX() {
 			return this->xCoordinate;
 		}
@@ -425,6 +420,7 @@ SP_BEGIN
 
 		}
 
+
 		void assignNull() {
 
 			this->xCoordinate = NULL;
@@ -441,13 +437,13 @@ SP_BEGIN
 
 		}
 
-		std::string globalType() {
+		string_t globalType() {
 
 			return typeid(T).name();
 
 		}
 
-		std::string currentType() {
+		string_t currentType() {
 
 			return typeid(Tp).name();
 
@@ -558,6 +554,11 @@ SP_BEGIN
 		}
 
 	};
+
+	
+	template <typename Tp, typename T>
+	int Point<Tp, T>::objectCount = 0;
+
 
 SP_END
 

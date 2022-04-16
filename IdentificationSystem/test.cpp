@@ -10,7 +10,6 @@ using ulint_t = unsigned long int;
 using ullint_t = unsigned long long int;
 using ldouble_t = long double;
 
-
 void unit1() {
 	std::cout << "\t\t ---test #1---\n\n";
 
@@ -107,7 +106,6 @@ void unit1() {
 
 }
 
-
 void unit2() {
 
 	std::cout << "\t\t ---test #2---\n\n";
@@ -177,5 +175,18 @@ int main(int argc, char* argv[]) {
 	std::cout << p3.getId() << '\n';
 	//std::cout << p3.getCount() << '\n';
 
+	std::cout << "check operator's * (Tp num) work:\n";
+	sp::Point<int> check(1, 2, 3);
+
+	check.output();
+
+	std::cout << '\n';
+
+	check = check * 3;
+
+	std::cout << "* (Tp num):\n";
+	check.output();
+
 	return 0;
 }
+

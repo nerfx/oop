@@ -495,6 +495,15 @@ SP_BEGIN
 
 			return point;
 		}
+
+		Point<Tp>& operator * (Tp num) {
+			
+			this->xCoordinate *= num;
+			this->yCoordinate *= num;
+			this->zCoordinate *= num;
+
+			return* this;
+		}
 		
 		~Point() {
 

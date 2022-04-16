@@ -16,18 +16,9 @@
 
 SP_BEGIN
 
-
 	using llInt_t = long long int;
 	using lDouble_t = long double;
-
 	using string_t = std::string;
-
-	using CharID_t = enum class CharID {
-
-		EXCEPT = NULL,
-		CHAR_ID, 
-		U_CHAR_ID
-	};
 
 	struct CharName {
 
@@ -37,6 +28,13 @@ SP_BEGIN
 
 		const string_t CHAR	= typeid(char).name();
 		const string_t U_CHAR = typeid(char).name();
+
+		enum class CharID {
+
+			EXCEPT = NULL,
+			CHAR_ID,
+			U_CHAR_ID
+		};
 
 	public:
 
@@ -50,15 +48,6 @@ SP_BEGIN
 
 		string_t getChar() {
 			return this->charType;
-		}
-
-		void typeInfo() {
-
-			const char n = '\n';
-
-			std::cout << "CHAR: " << CHAR << n;
-			std::cout << "U_CHAR: " << U_CHAR << n;
-
 		}
 
 		CharID enumOfChar() {
@@ -81,23 +70,10 @@ SP_BEGIN
 
 	};
 
-	using IntID_t = enum class IntID{
-
-		EXCEPT = NULL,
-		SHORT_ID,
-		INT_ID, 
-		LONG_ID, 
-		U_SHORT_ID,
-		U_INT_ID,
-		U_LONG_ID,
-		LL_INT_ID, 
-		ULL_INT_ID
-
-	};
-
 	struct IntName {
 
 	private:
+
 		string_t intType;
 
 		const string_t SHORT = typeid(short int).name();
@@ -108,6 +84,20 @@ SP_BEGIN
 		const string_t U_LONG = typeid(unsigned long int).name();
 		const string_t LL_INT = typeid(long long int).name();
 		const string_t ULL_INT = typeid(unsigned long long int).name();
+
+		enum class IntID {
+
+			EXCEPT = NULL,
+			SHORT_ID,
+			INT_ID,
+			LONG_ID,
+			U_SHORT_ID,
+			U_INT_ID,
+			U_LONG_ID,
+			LL_INT_ID,
+			ULL_INT_ID
+
+		};
 
 	public:
 
@@ -121,21 +111,6 @@ SP_BEGIN
 
 		string_t getInt() {
 			return this->intType;
-		}
-
-		void typeInfo() {
-
-			const char n = '\n';
-
-			std::cout << "SHORT INT: " << SHORT << n;
-			std::cout << "INT: " << INT << n;
-			std::cout << "LONG INT: " << LONG << n;
-			std::cout << "UNSIGNED SHORT: " << U_SHORT << n;
-			std::cout << "UNSIGNED INT: " << U_INT << n;
-			std::cout << "UNSIGNED LONG INT: " << U_LONG << n;
-			std::cout << "LONG LONG INT: " << LL_INT << n;
-			std::cout << "UNSIGNED LONG LONG INT: " << INT << n;
-			
 		}
 		
 		IntID enumOfInt() {
@@ -176,23 +151,24 @@ SP_BEGIN
 
 	};
 
-	using DoubleID_t = enum class DoubleID {
-
-		EXCEPT = NULL,
-		FLOAT_ID, 
-		DOUBLE_ID, 
-		L_DOUBLE_ID
-
-	};
-
 	struct DoubleName {
 
 	private:
+
 		string_t doubleType;
 
 		const string_t FLOAT = typeid(float).name();
 		const string_t DOUBLE = typeid(double).name();
 		const string_t L_DOUBLE = typeid(long double).name();
+
+		enum class DoubleID {
+
+			EXCEPT = NULL,
+			FLOAT_ID,
+			DOUBLE_ID,
+			L_DOUBLE_ID
+
+		};
 
 	public:
 
@@ -206,17 +182,6 @@ SP_BEGIN
 
 		string_t getDouble() {
 			return this->doubleType;
-		}
-
-		void typeInfo() {
-
-			const char n = '\n';
-
-			std::cout << "FLOAT: " << FLOAT << n;
-			std::cout << "DOUBLE: " << DOUBLE << n;
-			std::cout << "LONG DOUBLE: " << L_DOUBLE << n;
-
-
 		}
 
 		DoubleID enumOfDouble() {
@@ -249,26 +214,12 @@ SP_BEGIN
 		T xCoordinate;
 		T yCoordinate;
 		T zCoordinate;
+
 		static int objectCount;
 		int objectId;
 
-	protected:
-
-		void initialization(CharID_t& charID, IntID_t& intID, DoubleID_t& doubleID, const string_t typenameTp) {
-
-			CharName charName;
-			IntName intName;
-			DoubleName doubleName;
-
-			charName.setChar(typenameTp);
-			intName.setInt(typenameTp);
-			doubleName.setDouble(typenameTp);
-
-			charID = charName.enumOfChar();
-			intID = intName.enumOfInt();
-			doubleID = doubleName.enumOfDouble();
-
-		}
+		const string_t typenameTp = typeid(Tp).name();
+		const string_t typenameT = typeid(T).name();
 
 	public: 
 		
@@ -324,19 +275,22 @@ SP_BEGIN
 		Point<Tp>& randomInput(const Tp num1 = 20, const Tp num2 = 1) {
 
 			std::cout << "randomInput();\n";
-
-			const string_t type = typeid(Tp).name();
 		
-			std::cout << "Type of current object of class: " << type << '\n';
-			
-			CharID_t charID;
-			IntID_t intID;
-			DoubleID_t doubleID;
+			std::cout << "Type of current object of class: " << this->typenameTp << '\n';
 
-			//calling the type initialization function
-			initialization(charID, intID, doubleID, type);
+			CharName charName;
+			IntName intName;
+			DoubleName doubleName;
 
-			if (static_cast<int>(intID)) {
+			charName.setChar(this->typenameTp);
+			intName.setInt(this->typenameTp);
+			doubleName.setDouble(this->typenameTp);
+
+			int charId = static_cast<int>(charName.enumOfChar());
+			int intId = static_cast<int>(intName.enumOfInt());
+			int doubleId = static_cast<int>(doubleName.enumOfDouble());
+
+			if (intId) {
 
 				assignNull();
 
@@ -351,7 +305,7 @@ SP_BEGIN
 				return* this;
 
 			}
-			else if (static_cast<int>(doubleID)) {
+			else if (doubleId) {
 
 				assignNull();
 
@@ -368,7 +322,7 @@ SP_BEGIN
 				return* this;
 
 			}
-			else if(static_cast<int>(charID)) {
+			else if(charId) {
 
 				assignNull();
 
@@ -392,9 +346,7 @@ SP_BEGIN
 
 			}
 			else {
-
 				return* this;
-
 			}
 
 		}
@@ -420,7 +372,6 @@ SP_BEGIN
 
 		}
 
-
 		void assignNull() {
 
 			this->xCoordinate = NULL;
@@ -439,13 +390,13 @@ SP_BEGIN
 
 		string_t globalType() {
 
-			return typeid(T).name();
+			return this->typenameT;
 
 		}
 
 		string_t currentType() {
 
-			return typeid(Tp).name();
+			return this->typenameTp;
 
 		}
 

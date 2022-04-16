@@ -278,13 +278,9 @@ SP_BEGIN
 		
 			std::cout << "Type of current object of class: " << this->typenameTp << '\n';
 
-			CharName charName;
-			IntName intName;
-			DoubleName doubleName;
-
-			charName.setChar(this->typenameTp);
-			intName.setInt(this->typenameTp);
-			doubleName.setDouble(this->typenameTp);
+			CharName charName(this->typenmaeTp);
+			IntName intName(this->typenmaeTp);
+			DoubleName doubleName(this->typenmaeTp);
 
 			int charId = static_cast<int>(charName.enumOfChar());
 			int intId = static_cast<int>(intName.enumOfInt());

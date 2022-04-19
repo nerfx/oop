@@ -285,7 +285,7 @@ SP_BEGIN
 			IntName intName(this->typenameTp);
 			DoubleName doubleName(this->typenameTp);
 
-			if (!(this->xCoordinate || this->yCoordinate || this->zCoordinate)) {
+			if (this->xCoordinate || this->yCoordinate || this->zCoordinate) {
 
 				this->xCoordinate = NULL;
 				this->yCoordinate = NULL;
@@ -303,7 +303,6 @@ SP_BEGIN
 
 				llInt_t num1RandInt = static_cast<llInt_t>(num1);
 				llInt_t num2RandInt = static_cast<llInt_t>(num2);
-				
 
 				this->xCoordinate += rand() % num1RandInt + num2RandInt;
 				this->yCoordinate += rand() % num1RandInt + num2RandInt;
@@ -316,12 +315,9 @@ SP_BEGIN
 
 				//assignNull();
 
-				
 				lDouble_t num1RandDouble = static_cast<lDouble_t>(num1);
 				lDouble_t num2RandDouble = static_cast<lDouble_t>(num2);
 				
-
-
 				this->xCoordinate += rand() / num1RandDouble + num2RandDouble;
 				this->yCoordinate += rand() / num1RandDouble + num2RandDouble;
 				this->zCoordinate += rand() / num1RandDouble + num2RandDouble;
@@ -331,7 +327,7 @@ SP_BEGIN
 			}
 			else if(charId) {
 
-				assignNull();
+				//assignNull();
 
 				const int SIZE = 7;
 
@@ -353,7 +349,9 @@ SP_BEGIN
 
 			}
 			else {
+
 				return* this;
+
 			}
 
 		}

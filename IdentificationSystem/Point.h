@@ -224,7 +224,9 @@ SP_BEGIN
 	public: 
 		
 		Point(Tp xDefault = 0, Tp yDefault = 0, Tp zDefault = 0) {
-			srand(time(NULL));
+
+			srand(static_cast<unsigned int>(time(NULL)));
+
 			std::cout << "constructor : Point();\n";
 
 			this->xCoordinate = static_cast<T>(xDefault);
@@ -243,6 +245,7 @@ SP_BEGIN
 			this->zCoordinate = static_cast<T>(P.zCoordinate);
 
 		}
+
 
 		string_t getId() {
 
@@ -282,13 +285,21 @@ SP_BEGIN
 			IntName intName(this->typenameTp);
 			DoubleName doubleName(this->typenameTp);
 
+			if (this->xCoordinate == NULL || this->yCoordinate == NULL || this->zCoordinate == NULL) {
+
+				this->xCoordinate = NULL;
+				this->yCoordinate = NULL;
+				this->zCoordinate = NULL;
+
+			}
+
 			int charId = static_cast<int>(charName.enumOfChar());
 			int intId = static_cast<int>(intName.enumOfInt());
 			int doubleId = static_cast<int>(doubleName.enumOfDouble());
 
 			if (intId) {
 
-				assignNull();
+				//assignNull();
 
 				llInt_t num1RandInt = static_cast<llInt_t>(num1);
 				llInt_t num2RandInt = static_cast<llInt_t>(num2);
@@ -303,7 +314,7 @@ SP_BEGIN
 			}
 			else if (doubleId) {
 
-				assignNull();
+				//assignNull();
 
 				
 				lDouble_t num1RandDouble = static_cast<lDouble_t>(num1);

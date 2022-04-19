@@ -285,7 +285,7 @@ SP_BEGIN
 			IntName intName(this->typenameTp);
 			DoubleName doubleName(this->typenameTp);
 
-			if (this->xCoordinate == NULL || this->yCoordinate == NULL || this->zCoordinate == NULL) {
+			if (!(this->xCoordinate || this->yCoordinate || this->zCoordinate)) {
 
 				this->xCoordinate = NULL;
 				this->yCoordinate = NULL;
@@ -389,9 +389,7 @@ SP_BEGIN
 
 		bool isNull() {
 
-			return this->xCoordinate == NULL &&
-				this->yCoordinate == NULL &&
-				this->zCoordinate == NULL;
+			return !(this->xCoordinate || this->yCoordinate || this->zCoordinate);
 
 		}
 

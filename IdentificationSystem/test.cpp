@@ -133,7 +133,7 @@ void unit2() {
 	std::cout << "\ntesting <obj_name>.randomInput():\n\n";
 
 	charPoint.randomInput();
-	intPoint.randomInput();
+	intPoint.randomInput(20, 38);
 	doublePoint.randomInput();
 	
 	std::cout << "charPoint:\n";
@@ -186,6 +186,16 @@ int main(int argc, char* argv[]) {
 
 	std::cout << "* (Tp num):\n";
 	check.output();
+
+	std::cout << '\n';
+
+	sp::CharName charType("char");
+	sp::IntName intType("int");
+	sp::DoubleName doubleType("double");
+
+	std::cout << charType.getChar() << '\n';
+	std::cout << intType.getInt() << '\n';
+	std::cout << doubleType.getDouble() << '\n';
 
 	return 0;
 }

@@ -29,16 +29,16 @@ SP_BEGIN
 		const string_t CHAR	= typeid(char).name();
 		const string_t U_CHAR = typeid(char).name();
 
-		enum class CharID {
+		enum CharID {
 
-			EXCEPT = NULL,
+			EXCEPT = 0,
 			CHAR_ID,
 			U_CHAR_ID
 		};
 
 	public:
 
-		CharName(const string_t initChar = "0") {
+		CharName(string_t initChar = "") {
 			this->charType = initChar;
 		}
 
@@ -53,13 +53,13 @@ SP_BEGIN
 		CharID enumOfChar() {
 	
 			if (this->charType == CHAR) {
-				return CharID::CHAR_ID;
+				return CHAR_ID;
 			}
 			else if (this->charType == U_CHAR) {
-				return CharID::U_CHAR_ID;
+				return U_CHAR_ID;
 			}
 			else {
-				return CharID::EXCEPT;
+				return EXCEPT;
 			}
 
 		}
@@ -85,9 +85,9 @@ SP_BEGIN
 		const string_t LL_INT = typeid(long long int).name();
 		const string_t ULL_INT = typeid(unsigned long long int).name();
 
-		enum class IntID {
+		enum IntID {
 
-			EXCEPT = NULL,
+			EXCEPT = 0,
 			SHORT_ID,
 			INT_ID,
 			LONG_ID,
@@ -101,7 +101,7 @@ SP_BEGIN
 
 	public:
 
-		IntName(const string_t initInt = "0") {
+		IntName(string_t initInt = "") {
 			this->intType = initInt;
 		}
 
@@ -116,31 +116,31 @@ SP_BEGIN
 		IntID enumOfInt() {
 
 			if (this->intType == SHORT) {
-				return IntID::SHORT_ID;
+				return SHORT_ID;
 			}
 			else if (this->intType == INT) {
-				return IntID::INT_ID;
+				return INT_ID;
 			}
 			else if (this->intType == LONG) {
-				return IntID::LONG_ID;
+				return LONG_ID;
 			}
 			else if (this->intType == U_SHORT) {
-				return IntID::U_SHORT_ID;
+				return U_SHORT_ID;
 			}
 			else if (this->intType == U_INT) {
-				return IntID::U_INT_ID;
+				return U_INT_ID;
 			}
 			else if (this->intType == U_LONG) {
-				return IntID::U_INT_ID;
+				return U_INT_ID;
 			}
 			else if (this->intType == LL_INT) {
-				return IntID::LL_INT_ID;
+				return LL_INT_ID;
 			}
 			else if(this->intType == ULL_INT) {
-				return IntID::ULL_INT_ID;
+				return ULL_INT_ID;
 			}
 			else {
-				return IntID::EXCEPT;
+				return EXCEPT;
 			}
 
 		}
@@ -161,9 +161,9 @@ SP_BEGIN
 		const string_t DOUBLE = typeid(double).name();
 		const string_t L_DOUBLE = typeid(long double).name();
 
-		enum class DoubleID {
+		enum DoubleID {
 
-			EXCEPT = NULL,
+			EXCEPT = 0,
 			FLOAT_ID,
 			DOUBLE_ID,
 			L_DOUBLE_ID
@@ -172,7 +172,7 @@ SP_BEGIN
 
 	public:
 
-		DoubleName(const string_t initDouble = "\0") {
+		DoubleName(string_t initDouble = "") {
 			this->doubleType = initDouble;
 		}
 
@@ -187,16 +187,16 @@ SP_BEGIN
 		DoubleID enumOfDouble() {
 
 			if (this->doubleType == FLOAT) {
-				return DoubleID::FLOAT_ID;
+				return FLOAT_ID;
 			}
 			else if (this->doubleType == DOUBLE) {
-				return DoubleID::DOUBLE_ID;
+				return DOUBLE_ID;
 			}
 			else if(this->doubleType == L_DOUBLE) {
-				return DoubleID::L_DOUBLE_ID;
+				return L_DOUBLE_ID;
 			}
 			else {
-				return DoubleID::EXCEPT;
+				return EXCEPT;
 			}
 
 		}
@@ -275,7 +275,7 @@ SP_BEGIN
 
 		}
 
-		Point<Tp>& randomInput(const Tp num1 = 20, const Tp num2 = 1) {
+		Point<Tp>& randomInput(Tp maxRandom = 20, Tp minRandom = 1) {
 
 			std::cout << "randomInput();\n";
 		
@@ -285,7 +285,7 @@ SP_BEGIN
 			IntName intName(this->typenameTp);
 			DoubleName doubleName(this->typenameTp);
 
-			if (this->xCoordinate || this->yCoordinate || this->zCoordinate) {
+			if (!(this->xCoordinate || this->yCoordinate || this->zCoordinate)) {
 
 				this->xCoordinate = NULL;
 				this->yCoordinate = NULL;
@@ -297,44 +297,50 @@ SP_BEGIN
 			int intId = static_cast<int>(intName.enumOfInt());
 			int doubleId = static_cast<int>(doubleName.enumOfDouble());
 
+
+			//processing the input of a range of numbers
+			if (maxRandom < minRandom) {
+
+				Tp add = maxRandom;
+				maxRandom = minRandom;
+				minRandom = add;
+
+			}
+
+
 			if (intId) {
 
-				//assignNull();
+				const llInt_t max = static_cast<llInt_t>(maxRandom);
+				const llInt_t min = static_cast<llInt_t>(minRandom);
+				
 
-				llInt_t num1RandInt = static_cast<llInt_t>(num1);
-				llInt_t num2RandInt = static_cast<llInt_t>(num2);
-
-				this->xCoordinate += rand() % num1RandInt + num2RandInt;
-				this->yCoordinate += rand() % num1RandInt + num2RandInt;
-				this->zCoordinate += rand() % num1RandInt + num2RandInt;
+				this->xCoordinate += rand() % (max - min + 1) + min;
+				this->yCoordinate += rand() % (max - min + 1) + min;
+				this->zCoordinate += rand() % (max - min + 1) + min;
 
 				return* this;
 
 			}
 			else if (doubleId) {
-
-				//assignNull();
-
-				lDouble_t num1RandDouble = static_cast<lDouble_t>(num1);
-				lDouble_t num2RandDouble = static_cast<lDouble_t>(num2);
 				
-				this->xCoordinate += rand() / num1RandDouble + num2RandDouble;
-				this->yCoordinate += rand() / num1RandDouble + num2RandDouble;
-				this->zCoordinate += rand() / num1RandDouble + num2RandDouble;
+				const lDouble_t max = static_cast<lDouble_t>(maxRandom);
+				const lDouble_t min = static_cast<lDouble_t>(minRandom);
+				
+				this->xCoordinate += rand() / (max - min + 1) + min;
+				this->yCoordinate += rand() / (max - min + 1) + min;
+				this->zCoordinate += rand() / (max - min + 1) + min;
 
 				return* this;
 
 			}
 			else if(charId) {
 
-				//assignNull();
-
 				const int SIZE = 7;
 
-				char symbols[SIZE] = { '&', '#', '~', '8', 's', 'a', 'h' };
+				char symbols[SIZE]{ '&', '#', '~', '8', 's', 'a', 'h' };
 
 
-				const int BEGIN = NULL;
+				const int BEGIN = 0;
 				const int END = 6;
 				
 				char sym1 = symbols[rand() % END + BEGIN];
@@ -349,9 +355,7 @@ SP_BEGIN
 
 			}
 			else {
-
 				return* this;
-
 			}
 
 		}
@@ -439,7 +443,6 @@ SP_BEGIN
 
 			return newPoint;
 		}
-		
 		
 		Point<Tp> operator - (const Point<Tp>& minus) {
 			Point<Tp> point;
